@@ -1,0 +1,77 @@
+LinkedListNode* delete_node(
+    LinkedListNode* head,
+    int key) {
+  LinkedListNode* prev = nullptr;
+  LinkedListNode* current = head;
+
+  while (current != nullptr) {
+    if (current->data == key) {
+      if(current == head){
+          head = head->next;
+          delete current;
+          current = head;
+        }
+      else{
+        prev->next = current->next;
+        delete current;
+        current = prev->next;
+      }
+    }
+   else{ 
+      prev = current;
+      current = current->next;
+     }
+  }
+
+  // key not found in list
+  if (current == nullptr) {
+    return head;
+  }
+  
+  return head;
+}
+
+int main(int argc, char* argv[]) {
+  LinkedListNode* list_head = nullptr;
+  list_head = LinkedList::create_random_list(10);
+  printf("Original: ");
+  LinkedList::display(list_head);
+  
+  vector<int> lst = LinkedList::to_list(list_head);
+
+  printf("\nDeleting %d",lst.at(5));
+  list_head = delete_node(list_head, lst.at(5));
+  printf("\nAfter Delete Node:");
+  LinkedList::display(list_head);
+
+  printf("\nDeleting (Non-Existing) %d", 101);
+  list_head = delete_node(list_head, 101);
+  printf("\nAfter Delete Node:");
+  LinkedList::display(list_head);
+
+  printf("\nDeleting 1st node:%d", lst.at(0));
+  list_head = delete_node(list_head, lst.at(0));
+  printf("\nAfter Delete 1st Node:");
+  LinkedList::display(list_head);
+
+  lst = LinkedList::to_list(list_head);
+  printf("\nDeleting last node: %d" , lst.at(lst.size() - 1));
+  list_head = delete_node(list_head, lst.at(lst.size() - 1));
+  printf("\nAfter Delete last Node:");
+  LinkedList::display(list_head);
+}
+
+output:
+Original: 67, 81, 95, 88, 35, 34, 62, 44, 30, 43, 
+
+Deleting 34
+After Delete Node:67, 81, 95, 88, 35, 62, 44, 30, 43, 
+
+Deleting (Non-Existing) 101
+After Delete Node:67, 81, 95, 88, 35, 62, 44, 30, 43, 
+
+Deleting 1st node:67
+After Delete 1st Node:81, 95, 88, 35, 62, 44, 30, 43, 
+
+Deleting last node: 43
+After Delete last Node:81, 95, 88, 35, 62, 44, 30, 
