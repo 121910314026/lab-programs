@@ -1,0 +1,22 @@
+s = []
+
+# number of elemetns as input
+num = int(input("Enter number of elements : "))
+
+for i in range(0, num):
+    ele = int(input())
+
+    s.append(ele)  
+# adding the element
+
+print(s)
+i = 0
+while i<len(s):
+    #smallest element in the sublist
+    smallest = min(s[i:])
+    #index of smallest element
+    index_of_smallest = s.index(smallest)
+    #swapping
+    s[i],s[index_of_smallest] = s[index_of_smallest],s[i]
+    i=i+1
+print (s)
